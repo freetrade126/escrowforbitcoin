@@ -19,6 +19,7 @@ express --view=ejs .
 npm install
 npm install bitcoinjs-lib --save
 npm install superagent --save
+npm install mongodb --save
 ```
 
 > add this in your .gitignore file
@@ -40,4 +41,11 @@ nodemon start
 
 > We can start from here.
 
+# Escrow subsystem consist of two parts as API, UI.
 
+## API
+1. get new address from admin wallet (Pre-Generated bitcoin addresses)
+```
+/api/v1/get/address
+```
+2. check transaction and returns the result.
