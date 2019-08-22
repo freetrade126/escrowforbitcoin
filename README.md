@@ -16,15 +16,12 @@ npm install bitcoinjs-lib --save
 npm install superagent --save
 # add this in your .gitignore file
 
-#test web
-nodemon start
-http://localhost:3000
-
-
-
-
-
+# git push as initial.
 git add .
 git commit -m "initial"
 git remote add origin https://github.com/freetrade126/escrowforbitcoin.git
 git push -u origin master
+
+#test web
+nodemon start
+http://localhost:3000
