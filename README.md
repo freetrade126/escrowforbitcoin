@@ -1,4 +1,4 @@
-# escrowforbitcoin
+# Bitcoin Escrow  for **Reco D.**
 Escrow for bitcoin
 backend: node express, ejs
 frontend: vanillajs
