@@ -32,7 +32,7 @@ git remote add origin https://github.com/freetrade126/escrowforbitcoin.git
 git push -u origin master
 ```
 
-# test web
+### test web
 ```
 nodemon start
 ```
@@ -41,9 +41,9 @@ nodemon start
 
 > We can start from here.
 
-# Escrow subsystem consist of two parts as API, UI.
+### Escrow subsystem consist of two parts as API, UI.
 
-## API
+#### API
 1. get new address from admin wallet (Pre-Generated bitcoin addresses)
 ```
 /api/v1/get/address
