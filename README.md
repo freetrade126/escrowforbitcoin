@@ -3,13 +3,15 @@ Escrow for bitcoin
 backend: node express, ejs
 frontend: vanillajs
 
-##creating project & setting up libraries.
+## How to create project?
+
+### creating project & setting up libraries.
 ```
 npm install express-generator -g
 npm install nodemon -g
 ```
 
-##setting up git
+> setting up git
 ```
 git init
 git pull https://github.com/freetrade126/escrowforbitcoin.git master
@@ -19,9 +21,9 @@ npm install bitcoinjs-lib --save
 npm install superagent --save
 ```
 
-### add this in your .gitignore file
+> add this in your .gitignore file
 
-## git push as initial.
+> git push as initial.
 ```
 git add .
 git commit -m "initial"
@@ -29,7 +31,7 @@ git remote add origin https://github.com/freetrade126/escrowforbitcoin.git
 git push -u origin master
 ```
 
-#test web
+# test web
 ```
 nodemon start
 ```
