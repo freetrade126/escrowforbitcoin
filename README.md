@@ -47,17 +47,12 @@ nodemon start
 ### Project structure
 Node JS Express MVC
 
-> /controllers: **Controllers**
->
-> /models: **Database Models**
-> 
-> /views: **Frontend Views**
-> 
-> /routes: **Web request routes**
-> 
-> /public: **Web request static contents**
-> 
-> /libs: **local libraries for backend**
+> /controllers: **Controllers** <br>
+> /models: **Database Models** <br>
+> /views: **Frontend Views** <br>
+> /routes: **Web request routes** <br>
+> /public: **Web request static contents** <br>
+> /libs: **local libraries for backend** <br>
 
 ### Escrow subsystem database structure
 ```
