@@ -53,7 +53,8 @@ Node JS Express MVC
 > /libs: **local libraries for backend**
 
 ### Escrow subsystem database structure
-``` wallet collection
+```
+> address collection
 {
     "_id": ObjectId("5d601a7daa45443d74fd3c44"), 
     "address": "2N12i7j9PxennaUGsDPCkMpQwN1njvTMF3D",
@@ -66,12 +67,25 @@ Node JS Express MVC
     "updated": NumberInt("0")
 }
 ```
+> wallet collection
+```
+
+```
+
+> transactions collection
+```
+```
+
+> escrow collection
+```
+```
+
 
 ### Escrow subsystem consist of two parts as API, UI.
 
 #### API
 
-> API Format
+> API general response format
 ```
 {
 	status: 'ok|fail', 
@@ -81,15 +95,22 @@ Node JS Express MVC
 
 1. get new address from admin wallet (Pre-Generated bitcoin addresses)
 ```
-/api/v1/get/address
+/api/v1/address/get
 ```
+It assigns new a address  to guest.
+If the guest has already assigned address, api returns one.
+
 
 2. check transactions of specified bitcoin address (deposit).
 ```
-/api/v1/get/address/**{address}**
+/api/v1/address/check/**{address}**
+```
+Once upon detecting transactions in the bitcoin address, it updates appropriate database address collection document and counting on confirmations of bitcoin network.
+An incoming transaction needs to receive 3 Bitcoin network confirmations to appear in your wallet.
+Confirmations have done, It create or update new document in wallet database. 
+
+3. create escrow bitcoins.
+```
+/api/v1/escrow/create/:amount *(as satoshi)*
 ```
 
-3. check confirmations of specified transaction.
-```
-/api/v1/get/tx/**{tx}**
-```

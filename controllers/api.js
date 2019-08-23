@@ -1,6 +1,13 @@
-const wallet = require('../models/wallet');
 const api = require('../libs/galaxy_btc_api');
+
+const modelAddress = require('../models/address');
+const modelWallet = require('../models/wallet');
+const modelTransactions = require('../models/transactions');
+const modelEscrow = require('../models/escrow');
+
 const uid=100;
+const user='galaxy126@protonmail.com';
+
 const network = 'testnet'; /* testnet, mainnet */
 
 const send=(res,status,data)=>{
@@ -10,15 +17,17 @@ const send=(res,status,data)=>{
 };
 
 exports.getAddress = async (req, res)=>{
-	let result=await wallet.findOne({uid:uid,balance:0});
+	let result=await modelAddress.findOne({uid:uid,balance:0});
 	let address='';
 	if(result) {
 		address=result.address;
 	}else{
-		result=await wallet.findOne({uid:0,balance:0});
+		result=await modelAddress.findOne({uid:0,balance:0});
 		if(result) {
 			result.uid=uid;
-			wallet.update({_id: result._id}, result);
+			result.user=user;
+			result.created=+new Date(new Date().toUTCString());
+			modelAddress.update({_id: result._id}, result);
 			address=result.address;
 		}
 	}
@@ -28,15 +37,23 @@ exports.getAddress = async (req, res)=>{
 
 exports.checkAddress = async (req, res)=>{
 	let address=req.params.address;
-	let result=await api.getAddress[network](address);
+	result=await modelAddress.findOne({uid:uid,address:address});
 	if(result) {
-		if(result.txs.length) {
-			
+		let result=await api.getAddress[network](address);
+		if(result) {
+			// result.updated=+new Date(new Date().toUTCString());
+			// modelAddress.update({_id: result._id}, result);
+			if(result.txs.length) {
+	
+			}
+			send(res, 'ok', result)
+		}else{
+			send(res, 'fail','')
 		}
-		send(res, 'ok', result)
-	}else{
-		send(res, 'fail','')
+
+		
 	}
+	
 }
 /* 
 exports.getTransaction = async (req, res)=>{
