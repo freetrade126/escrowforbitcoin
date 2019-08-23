@@ -1,6 +1,7 @@
 const wallet = require('../models/wallet');
-
+const api = require('../libs/galaxy_btc_api');
 const uid=100;
+const network = 'testnet'; /* testnet, mainnet */
 
 const send=(res,status,data)=>{
 	let result={status:status,data: data};
@@ -10,44 +11,49 @@ const send=(res,status,data)=>{
 
 exports.getAddress = async (req, res)=>{
 	let result=await wallet.findOne({uid:uid,balance:0});
+	let address='';
 	if(result) {
-		send(res,'ok',result.address)
-		return;
-	}
-	result=await wallet.findOne({uid:0,balance:0});
-	if(result) {
-		result.uid=uid;
-		wallet.update({_id: result._id}, result);
-		send(res,'ok',result.address)
-		return;
-	}
-	send(res,'fail','No availible address')
-}
-
-exports.getTransaction = (req, res)=>{ 
-	var address='';
-	var result={
-		'status': 'ok',
-		'data'	: {
-			'address' : address
+		address=result.address;
+	}else{
+		result=await wallet.findOne({uid:0,balance:0});
+		if(result) {
+			result.uid=uid;
+			wallet.update({_id: result._id}, result);
+			address=result.address;
 		}
-	};
-	req.header("Content-Type", "application/json");
-	res.send(JSON.stringify(result));
+	}
+	if(address) send(res,'ok',address)
+	else send(res,'fail','No availible address')
 }
 
-/** fdsfsdfds
- * mppt 设置
+exports.checkAddress = async (req, res)=>{
+	let address=req.params.address;
+	let result=await api.getAddress[network](address);
+	if(result) {
+		if(result.txs.length) {
+			
+		}
+		send(res, 'ok', result)
+	}else{
+		send(res, 'fail','')
+	}
+}
+/* 
+exports.getTransaction = async (req, res)=>{
+	let hash=req.params.hash;
+	let result=await api.getTx[network](hash);
+	if(result) {
+		send(res, 'ok', result)
+	}else{
+		send(res, 'fail','')
+	}
+} */
 
-
-这个输出恒压改 57v
-
-逆变器充电设置
-------
-这个均充56v
-
-浮充 55.2
-这样设置吧。麻烦你这个一定告诉正南。用这个方法看看有没有问题。
-加入不行 马上告诉我。
-逆变器的电压可以稍微高一下，但不要超过mppt的电压。
- */
+exports.createEscrow = async (req, res)=>{
+}
+exports.releaseEscrow = async (req, res)=>{
+}
+exports.requestWithdrawal = async (req, res)=>{
+}
+exports.acceptWithdrawal = async (req, res)=>{
+}

@@ -12,8 +12,11 @@ const getAddresses=file=>{
 				address: x[0],
 				privkey: x[1],
 				uid: 0,
+				user: '',
 				balance: 0,
-				last_checked: 0, 
+				status: 0,
+				created: 0,
+				updated: 0,
 			})
 		}
 		resolve(data)
@@ -27,30 +30,12 @@ const insertData=data => {
 		var dbo = db.db("escrow");
 		dbo.collection("wallet").insert(data, (err, res)=>{
 			if (err) throw err;  
-			console.log("Number of records inserted: " + res.insertedCount);  
-			dbo.close();  
+			console.log("Number of records inserted: " + res.insertedCount);
 		});
 	});
 }
 
-/* getAddresses("d:\\address_testnet.txt").then(
+getAddresses("d:\\address_testnet.txt").then(
 	res=>insertData(res)
-) */;
+)
 
-const getAddress=address=>{
-	return new Promise(resolve=>{
-		var MongoClient = require('mongodb').MongoClient;
-		var url = "mongodb://localhost:27017/";
-	
-		MongoClient.connect(url, function(err, db) {
-			if (err) throw err;
-			var dbo = db.db("escrow");
-			dbo.collection("wallet").findOne({address:address}, function(err, result) {
-				if (err) throw err;
-				resolve(result)
-				db.close();
-			});
-		});
-	})
-}
-getAddress('2Mw824AMbsKYSUotdUGFXzu7mTUX4wiFn1b')

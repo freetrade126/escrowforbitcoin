@@ -1,85 +1,6 @@
 const bitcoin = require('bitcoinjs-lib');
-const request = require('superagent');
 
-const getBalance = {
-	mainnet: addr=>{
-		return new Promise((resolve,reject)=>{
-			request.get('https://api.blockcypher.com/v1/btc/main/addrs/'+addr+'/balance').send().then(res=>resolve(parseFloat(res.body)))
-		},reason=>{
-			reject(reason)
-		})
-	},
-	testnet: addr=>{
-		return new Promise((resolve,reject)=>{
-			request.get('https://api.blockcypher.com/v1/btc/test3/addrs/'+addr+'/balance').send().then(res=>resolve(parseFloat(res.body)))
-		},reason=>{
-			reject(reason)
-		})
-	}
-};
-const getFee = ()=>{
-	return new Promise((resolve,reject)=>{
-		request.get('https://bitcoinfees.earn.com/api/v1/fees/recommended').send().then(res=> resolve(res.body['fastestFee']))
-	});
-};
-const getUtxos = {
-	mainnet: addr=>{
-		return new Promise((resolve,reject)=>{
-			request.get('https://api.blockcypher.com/v1/btc/main/addrs/'+addr+'?unspentOnly=true').send().then(res=>{
-				resolve(res.body.txrefs.map(e=>{
-					return {
-						tx: e.tx_hash,
-						vout: e.tx_output_n,
-						value: e.value,
-						confirmations: e.confirmations
-					};
-				}))
-			},reason=>{
-				reject(reason)
-			})
-		})
-	},
-	testnet: async addr=>{
-		return new Promise((resolve,reject)=>{
-			request.get('https://api.blockcypher.com/v1/btc/test3/addrs/'+addr+'?unspentOnly=true').send().then(res=>{
-				resolve(res.body.txrefs.map(e=>{
-					return {
-						tx: e.tx_hash,
-						vout: e.tx_output_n,
-						value: e.value,
-						confirmations: e.confirmations
-					};
-				}))
-			},reason=>{
-				reject(reason)
-			})
-		})
-	}
-};
-const pushHex = {
-	mainnet: hexTrans=>{
-		return new Promise((resolve,reject)=>{
-			request.post('https://api.blockcypher.com/v1/btc/main/txs/push').send(JSON.stringify({tx:hexTrans})).then(res=>{
-				resolve({
-					tx: res.body.tx.hash
-				})
-			},reason=>{
-				reject(reason)
-			})
-		})
-	},
-	testnet: hexTrans=>{
-		return new Promise((resolve,reject)=>{
-			request.post('https://api.blockcypher.com/v1/btc/test3/txs/push').send(JSON.stringify({tx:hexTrans})).then(res=>{
-				resolve({
-					tx: res.body.tx.hash
-				})
-			},reason=>{
-				reject(reason)
-			})
-		})
-	}
-};
+
 
 const send = options=>{
 	return new Promise((resolve,reject)=>{
@@ -120,7 +41,7 @@ const send = options=>{
 						fv.key=keyPair;
 						// fv.p2sh=p2sh;
 						amountIn+=fv.value;
-						tx.addInput(fv.tx, fv.vout);
+						tx.addInput(fv.hash, fv.vout);
 						unspents.push(fv);
 					})
 				}else{
@@ -130,7 +51,7 @@ const send = options=>{
 								fv.key=keyPair;
 								// fv.p2sh=p2sh;
 								amountIn+=fv.value;
-								tx.addInput(fv.tx, fv.vout);
+								tx.addInput(fv.hash, fv.vout);
 								unspents.push(fv);
 							}
 						})
@@ -166,11 +87,10 @@ const send = options=>{
 }
 
 module.exports = {
-	getBalance:	getBalance,
 	getFee:		getFee,
-	getUtxos:	getUtxos,
+	getAddress:	getAddress,
 	getTx:		getTx,
-
+	getUtxos:	getUtxos,
 	pushHex:	pushHex,
 	send:		send
 }
