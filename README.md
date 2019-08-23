@@ -20,8 +20,8 @@ npm install
 npm install bitcoinjs-lib --save
 npm install superagent --save
 npm install mongoose --save
-// npm install mongodb --save
 npm install --save express body-parser mongoose
+npm install express-session --save
 ```
 
 > add this in your .gitignore file
@@ -60,8 +60,8 @@ Node JS Express MVC
 > API Format
 ```
 {
-    status: 'ok|fail', 
-    data: { ... }
+	status: 'ok|fail', 
+	data: { ... }
 }
 ```
 
