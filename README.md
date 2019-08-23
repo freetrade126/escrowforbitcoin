@@ -1,6 +1,8 @@
 # Bitcoin Escrow  for **Reco D.**
 Escrow for bitcoin
+
 backend: node express, ejs
+
 frontend: vanillajs
 
 ## How to create project?
@@ -98,6 +100,7 @@ Node JS Express MVC
 /api/v1/address/get
 ```
 It assigns new a address  to guest.
+
 If the guest has already assigned address, api returns one.
 
 
@@ -105,9 +108,12 @@ If the guest has already assigned address, api returns one.
 ```
 /api/v1/address/check/**{address}**
 ```
-Once upon detecting transactions in the bitcoin address, it updates appropriate database address collection document and counting on confirmations of bitcoin network.
+
+Once upon detecting transactions in the bitcoin address, it updates **address** collection document and counting on confirmations of bitcoin network.
+
 An incoming transaction needs to receive 3 Bitcoin network confirmations to appear in your wallet.
-Confirmations have done, It create or update new document in wallet database. 
+
+Confirmations have done, It create or update new document in **wallet** collection. 
 
 3. create escrow bitcoins.
 ```
