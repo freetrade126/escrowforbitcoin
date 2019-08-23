@@ -48,10 +48,15 @@ nodemon start
 Node JS Express MVC
 
 > /controllers: **Controllers**
+>
 > /models: **Database Models**
+> 
 > /views: **Frontend Views**
+> 
 > /routes: **Web request routes**
+> 
 > /public: **Web request static contents**
+> 
 > /libs: **local libraries for backend**
 
 ### Escrow subsystem database structure
