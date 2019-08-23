@@ -14,4 +14,3 @@ exports.transactions = (req, res)=>{
 exports.qrcode = (req, res)=>{
 	res.send('')
 }
-
