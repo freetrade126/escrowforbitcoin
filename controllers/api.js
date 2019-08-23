@@ -44,7 +44,6 @@ exports.checkAddress = async (req, res)=>{
 	let address=req.params.address;
 	result=await modelAddress.findOne({uid:uid,address:address});
 	if(result && result.status==0) {
-		
 		let tx=result.tx;
 		if(tx=='') {
 			let res=await api.getAddress[network](address);
@@ -70,7 +69,7 @@ exports.checkAddress = async (req, res)=>{
 		send(res, 'ok', {
 			tx: result.tx,
 			status: result.status,
-			amount: result.value
+			amount: result.balance
 		})
 	}else{
 		send(res, 'fail','')

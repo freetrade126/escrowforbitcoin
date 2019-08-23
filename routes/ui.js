@@ -1,16 +1,11 @@
-const express = require('express');
-const router = express.Router();
+const express = 								require('express');
+const router = 									express.Router();
+const uiController = 							require('../controllers/ui');
 
-router.post('/depositbtc', (req, res, next)=>{
-	res.send('Deposit');
-});
+router.post('/deposit', 						uiController.deposit);
 
-router.get('/withdraw', (req, res, next)=>{
-	// req.params: { "userId": "34", "bookId": "8989" }
-	res.send('Withdraw');
-});
-router.get('/transactions', (req, res, next)=>{
-	// req.params: { "userId": "34", "bookId": "8989" }
-	res.send('transactions');
-});
+router.get('/withdraw', 						uiController.withdraw);
+router.get('/transactions', 					uiController.transactions);
+router.get('/qrcode/:address/:amount', 			uiController.qrcode);
+
 module.exports = router;

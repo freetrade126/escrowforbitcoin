@@ -102,7 +102,14 @@ If the guest has already assigned address, api returns one.<br>
 
 2. check transactions of specified bitcoin address (deposit).
 ```
-/api/v1/address/check/**{address}**
+/api/v1/address/check/{address}
+
+{
+	status: 'ok', 
+	tx: 'e331aea1c2253d711cecbf76899b87d2ddefc6e141af57f86954f93949c7da55',
+    status: 0|100,
+    amount: 860
+}
 ```
 
 Once upon detecting transactions in the bitcoin address, it updates **address** collection document and counting on confirmations of bitcoin network.<br>
@@ -111,7 +118,7 @@ Confirmations have done, It create or update new document in **wallet** collecti
 
 3. create escrow bitcoins.
 ```
-/api/v1/escrow/create/:amount *(as satoshi)*
+/api/v1/escrow/create/:amount (as satoshi)
 ```
 
 4. release escrow bitcoins.
@@ -121,10 +128,20 @@ Confirmations have done, It create or update new document in **wallet** collecti
 
 5. release escrow bitcoins.
 ```
-/api/v1/withdraw/request/:address/:amount *(as satoshi)*
+/api/v1/withdraw/request/:address/:amount (as satoshi)
 ```
 
 6. release escrow bitcoins.
 ```
-/api/v1/withdraw/accept/:requestid *(as satoshi)*
+/api/v1/withdraw/accept/:requestid (as satoshi)
 ```
+
+## user interface
+1. Deposit
+> /ui/deposit
+
+2. Withdrawal
+> /ui/withdraw
+ 
+3. Transactions 
+> /ui/Transactions

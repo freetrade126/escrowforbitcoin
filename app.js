@@ -22,7 +22,8 @@ require('mongodb').MongoClient.connect("mongodb://localhost:27017/", (err, con)=
 
 	app.use('/',			require('./routes/index'));
 	app.use('/api/v1', 		require('./routes/api'));
-	app.use('/users', 		require('./routes/users'));
+	app.use('/ui', 			require('./routes/ui'));
+	// app.use('/users', 		require('./routes/users'));
 	
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {
