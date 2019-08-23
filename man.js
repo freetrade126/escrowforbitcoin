@@ -11,6 +11,7 @@ const getAddresses=file=>{
 			data.push({
 				address: x[0],
 				privkey: x[1],
+				tx: '',
 				uid: 0,
 				user: '',
 				balance: 0,
@@ -28,7 +29,7 @@ const insertData=data => {
 	MongoClient.connect("mongodb://localhost:27017/", (err, db)=>{
 		if (err) throw err;
 		var dbo = db.db("escrow");
-		dbo.collection("wallet").insert(data, (err, res)=>{
+		dbo.collection("address").insert(data, (err, res)=>{
 			if (err) throw err;  
 			console.log("Number of records inserted: " + res.insertedCount);
 		});

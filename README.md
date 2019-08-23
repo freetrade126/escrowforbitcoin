@@ -1,5 +1,4 @@
 # Bitcoin Escrow  for **Reco D.**
-Escrow for bitcoin<br>
 backend: node express, ejs<br>
 frontend: vanillajs<br>
 
@@ -9,10 +8,6 @@ frontend: vanillajs<br>
 ```
 npm install express-generator -g
 npm install nodemon -g
-```
-
-> setting up git
-```
 git init
 git pull https://github.com/freetrade126/escrowforbitcoin.git master
 express --view=ejs .
@@ -34,7 +29,7 @@ git remote add origin https://github.com/freetrade126/escrowforbitcoin.git
 git push -u origin master
 ```
 
-### test web
+### Test web
 ```
 nodemon start
 ```
@@ -96,6 +91,11 @@ Node JS Express MVC
 1. get new address from admin wallet (Pre-Generated bitcoin addresses)
 ```
 /api/v1/address/get
+
+{
+	status: 'ok', 
+	data: '15QG2HWLvPhiRNQuwwPuTTbfcPxiTWtVLT'
+}
 ```
 It assigns new a address  to guest.<br>
 If the guest has already assigned address, api returns one.<br>
@@ -114,3 +114,17 @@ Confirmations have done, It create or update new document in **wallet** collecti
 /api/v1/escrow/create/:amount *(as satoshi)*
 ```
 
+4. release escrow bitcoins.
+```
+/api/v1/escrow/release/:escrowid
+```
+
+5. release escrow bitcoins.
+```
+/api/v1/withdraw/request/:address/:amount *(as satoshi)*
+```
+
+6. release escrow bitcoins.
+```
+/api/v1/withdraw/accept/:requestid *(as satoshi)*
+```

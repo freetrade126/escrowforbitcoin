@@ -5,6 +5,7 @@ const modelWallet = require('../models/wallet');
 const modelTransactions = require('../models/transactions');
 const modelEscrow = require('../models/escrow');
 
+const MIN_CONFIRMATIONs = 3;
 const uid=100;
 const user='galaxy126@protonmail.com';
 
@@ -16,13 +17,17 @@ const send=(res,status,data)=>{
 	res.send(JSON.stringify(result));
 };
 
+const deposit= amount => {
+
+};
+
 exports.getAddress = async (req, res)=>{
-	let result=await modelAddress.findOne({uid:uid,balance:0});
+	let result=await modelAddress.findOne({uid:uid,status:0});
 	let address='';
 	if(result) {
 		address=result.address;
 	}else{
-		result=await modelAddress.findOne({uid:0,balance:0});
+		result=await modelAddress.findOne({uid:0});
 		if(result) {
 			result.uid=uid;
 			result.user=user;
@@ -38,22 +43,38 @@ exports.getAddress = async (req, res)=>{
 exports.checkAddress = async (req, res)=>{
 	let address=req.params.address;
 	result=await modelAddress.findOne({uid:uid,address:address});
-	if(result) {
-		let result=await api.getAddress[network](address);
-		if(result) {
-			// result.updated=+new Date(new Date().toUTCString());
-			// modelAddress.update({_id: result._id}, result);
-			if(result.txs.length) {
-	
-			}
-			send(res, 'ok', result)
-		}else{
-			send(res, 'fail','')
-		}
-
+	if(result && result.status==0) {
 		
+		let tx=result.tx;
+		if(tx=='') {
+			let res=await api.getAddress[network](address);
+			if(res) {
+				if(res.txs.length) {
+					tx=res.txs[res.txs.length-1];
+					result.tx=tx;
+				}
+			}
+		}
+		if(tx) {
+			let res=await api.getTx[network](tx);
+			if(res) {
+				if(res.confirmations>=MIN_CONFIRMATIONs) {
+					result.balance=res.value;
+					result.status=100;
+					deposit(result.balance);
+				}
+			}
+		}
+		result.update=+new Date(new Date().toUTCString());
+		modelAddress.update({_id: result._id}, result);
+		send(res, 'ok', {
+			tx: result.tx,
+			status: result.status,
+			amount: result.value
+		})
+	}else{
+		send(res, 'fail','')
 	}
-	
 }
 /* 
 exports.getTransaction = async (req, res)=>{
