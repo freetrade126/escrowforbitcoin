@@ -5,6 +5,15 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var app = express();
+
+const io = require('socket.io')(app.server);
+io.on('connection', socket  => {
+	// socket.emit('request', /* … */); // emit an event to the socket
+	// io.emit('broadcast', /* … */); // emit an event to all connected sockets
+	socket.on('check', data => {
+		console.log(data)
+	});
+});
 // mongoose.connect("mongodb://localhost:27017/escrow", {useNewUrlParser: true});
 
 
@@ -37,7 +46,7 @@ require('mongodb').MongoClient.connect("mongodb://localhost:27017/", (err, con)=
 	
 		// render the error page
 		res.status(err.status || 500);
-		res.render('error');
+		res.render('pages/error');
 	});
 
 	// we're connected!

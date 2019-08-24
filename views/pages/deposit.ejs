@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Deposit</title>
+	<% include ../partials/head %>
+</head>
+<body class="container">
+<% include ../partials/header %>
+
+
+<main>
+	<h3>Deposit</h3>
+	<div class="text-center" >
+		<div id="loading">
+			<div class="spinner-grow text-secondary" role="status">
+			<span class="sr-only">Loading...</span>
+			</div>
+			<div class="spinner-grow text-success" role="status">
+			<span class="sr-only">Loading...</span>
+			</div>
+			<div class="spinner-grow text-danger" role="status">
+			<span class="sr-only">Loading...</span>
+			</div>
+			<div class="spinner-grow text-warning" role="status">
+			<span class="sr-only">Loading...</span>
+			</div>
+			<div class="spinner-grow text-info" role="status">
+			<span class="sr-only">Loading...</span>
+			</div>
+			<div class="spinner-grow text-dark" role="status">
+				<span class="sr-only">Loading...</span>
+			</div>
+		</div>
+		<div id="step1" class="deposit d-none">
+			<div id="qrcode"></div>
+			<p class="mt-2 "><input id="address" style="width:350px;outline:none;border:none" readonly class="text-center text-monospace font-weight-bold" value=""></p>
+			<h4 class="mt-4"><i class="fa fa-cog fa-spin"></i> Waiting your payment...</h4>
+			<p>An incoming transaction needs to receive 3 Bitcoin network confirmations to appear in your wallet.</p>
+		</div>
+	</div>
+</main>
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+<script src="/js/jquery.qrcode.js"></script>
+<script src="/js/socket.io.js"></script>
+<script src="/app/deposit.js"></script>
+</body>
+</html>

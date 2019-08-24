@@ -17,6 +17,9 @@ npm install superagent --save
 npm install mongoose --save
 npm install --save express body-parser mongoose
 npm install express-session --save
+npm install --save qrcode
+npm install socket.io --save
+
 ```
 
 > add this in your .gitignore file
