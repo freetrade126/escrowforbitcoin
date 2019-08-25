@@ -109,9 +109,12 @@ If the guest has already assigned address, api returns one.<br>
 
 {
 	status: 'ok', 
-	tx: 'e331aea1c2253d711cecbf76899b87d2ddefc6e141af57f86954f93949c7da55',
-    status: 0|100,
-    amount: 860
+    data: {
+        tx: e331aea1c2253d711cecbf76899b87d2ddefc6e141af57f86954f93949c7da55',
+        status: 0|100,
+        amount: 860
+    }
+	
 }
 ```
 
