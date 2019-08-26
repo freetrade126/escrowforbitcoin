@@ -28,7 +28,7 @@
 	</div>
 	<div class="row">
 		<div class="col-md-6">
-			<form class="mt-5" action="" method="POST">
+			<form class="mt-5" action="/ui/withdraw" method="POST">
 				<div class="field-row ">
 					<div class="label-vertical form-group">
 						<label for="address" class="control-label requiredField">Receiving bitcoin address</label>
@@ -51,12 +51,9 @@
 	</div>
 </div>
 </main>
-
 <% include ../partials/footer %>
 <% include ../partials/js %>
-<script src="/js/jquery.qrcode.js"></script>
-<script src="/js/socket.io.js"></script>
-<script src="/app/deposit.js"></script>
+<script src="/app/withdraw.js"></script>
 </body>
 </html>
 

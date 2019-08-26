@@ -1,1 +1,41 @@
-aaa
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Deposit</title>
+	<% include ../partials/head %>
+</head>
+<body class="container">
+<% include ../partials/header %>
+
+
+<main>
+<div class="dialog">
+	<h3>Transactions</h3>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Created</th>
+				<th>Amount</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% rows.forEach(row=>{ %>
+			<tr>
+				<td><%= row.created %></td>
+				<td><%= row.btc %></td>
+				<td><%= row.note %></td>
+			</tr>
+			<% }); %>
+		</tbody>
+	</table>
+</div>
+</main>
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+<script src="/js/jquery.qrcode.js"></script>
+<script src="/js/socket.io.js"></script>
+<script src="/app/deposit.js"></script>
+</body>
+</html>

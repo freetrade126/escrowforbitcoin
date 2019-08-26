@@ -44,6 +44,7 @@ exports.getAddress = async (req, res)=>{
 
 exports.checkAddress = async (req, res)=>{
 	let result=await address();
+	let now=(+new Date(new Date().toUTCString()))/1000;
 	if(result.tx=='') {
 		let resApi=await api.getAddress[network](result.address);
 		if(resApi) {
@@ -69,7 +70,8 @@ exports.checkAddress = async (req, res)=>{
 						uid: uid,
 						user: user,
 						btc: result.balance,
-						btclocked: 0
+						btclocked: 0,
+						created: now
 					};
 					modelWallet.insertOne(row);
 				}
@@ -77,13 +79,14 @@ exports.checkAddress = async (req, res)=>{
 					uid: uid,
 					user: user,
 					btc: result.balance,
-					note: 'Deposit from '+result.address
+					note: 'Deposit from '+result.address,
+					created: now
 				});
 			}
 			
 		}
 	}
-	result.updated=(+new Date(new Date().toUTCString()))/1000;
+	result.updated=now;
 	modelAddress.update({_id: result._id}, result);
 	send(res, 'ok', {
 		address: result.address,
