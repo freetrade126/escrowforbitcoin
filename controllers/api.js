@@ -64,13 +64,15 @@ exports.checkAddress = async (req, res)=>{
 				row=await modelWallet.findOne({uid:uid});
 				if(row) {
 					row.btc+=result.balance;
-					modelAddress.update({_id: row._id}, row);
+					row.updated=now;
+					modelWallet.update({_id: row._id}, row);
 				}else{
 					row={
 						uid: uid,
 						user: user,
 						btc: result.balance,
 						btclocked: 0,
+						updated: now,
 						created: now
 					};
 					modelWallet.insertOne(row);

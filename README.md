@@ -67,11 +67,40 @@ Node JS Express MVC
 ```
 > wallet collection
 ```
-
+{
+    uid: uid,
+    user: user,
+    btc: balance (as satoshi),
+    btclocked: 0 (total escrow amount),
+    updated: now,
+    created: now
+}
+```
+> withdrawal
+```
+{
+    "_id": ObjectId("5d601a7daa45443d74fd3c44"), 
+    uid: userid,
+    user:'user name',
+    address: 'bitcoin address',
+    amount: amount,
+    fee: fee,
+    tx: '',
+    status: 0,
+    updated: now,
+    created: now
+}
 ```
 
 > transactions collection
 ```
+{
+    uid: uid,
+    user: user,
+    btc: bitcoin balance,
+    note: 'Deposit from bitcoin address',
+    created: now
+}
 ```
 
 > escrow collection

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Confirm withdraw</title>
+	<% include ../partials/head %>
+</head>
+<body class="container">
+<% include ../partials/header %>
+
+
+<main>
+<div class="dialog">
+	<p>created: <%= created %></p>
+	<p>address: <%= address %></p>
+	<p>amount: <%= amount %></p>
+	<p>tx: <%= tx %></p>
+	<p>fee: <%= fee %></p>
+	<p>status: <%= status %></p>
+</div>
+</main>
+<% include ../partials/footer %>
+<% include ../partials/js %>
+<script src="/app/withdraw.js"></script>
+</body>
+</html>
+
+
+
+
+	
