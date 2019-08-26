@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Deposit</title>
+	<title>Transactions</title>
 	<% include ../partials/head %>
 </head>
 <body class="container">
@@ -23,7 +23,7 @@
 			<% rows.forEach(row=>{ %>
 			<tr>
 				<td><%= row.created %></td>
-				<td><%= row.btc %></td>
+				<td><%= (row.btc/100000000).toFixed(8) %></td>
 				<td><%= row.note %></td>
 			</tr>
 			<% }); %>

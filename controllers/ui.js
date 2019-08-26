@@ -2,6 +2,7 @@ const ObjectId = require('mongodb').ObjectID
 
 const modelWallet = require('../models/wallet');
 const modelWithdrawal = require('../models/withdrawal');
+const modelTransactions = require('../models/transactions');
 const uid=100;
 const WITHDRAWAL_FEE = 20000;
 const WITHDRAWAL_MIN = 10000;
@@ -79,8 +80,14 @@ exports.confirmWithdraw=async(req,res)=>{
 	
 	
 }
-exports.transactions = (req, res)=>{
-	res.render('pages/transactions');
+exports.transactions = async (req, res)=>{
+	modelTransactions.find({uid:uid}).toArray(function (err, result) {
+        console.log(result)
+		res.render('pages/transactions',{
+			rows: result
+		});
+    });
+	
 }
 exports.qrcode = (req, res)=>{
 	let address=req.params.address;

@@ -87,10 +87,5 @@ const send = options=>{
 }
 
 module.exports = {
-	getFee:		getFee,
-	getAddress:	getAddress,
-	getTx:		getTx,
-	getUtxos:	getUtxos,
-	pushHex:	pushHex,
 	send:		send
 }
