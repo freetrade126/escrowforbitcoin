@@ -84,6 +84,7 @@ a {
 	background-color: white;
 	border: 1px solid #aaa;
 }
+
 .dialog {
 	padding: 60px;
 }
@@ -92,4 +93,10 @@ a {
 	.dialog {
 		padding: 10px;
 	}
+}
+.ellipsis{
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis; 
+
 }

@@ -12,6 +12,7 @@ const getAddresses=file=>{
 				address: x[0],
 				privkey: x[1],
 				tx: '',
+				confirmations:0,
 				uid: 0,
 				user: '',
 				balance: 0,

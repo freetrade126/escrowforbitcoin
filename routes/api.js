@@ -2,11 +2,11 @@ const express = 								require('express');
 const router = 									express.Router();
 const apiController = 							require('../controllers/api');
 
-/* Get new address in admin wallet (pre generated addresses) */
+/* Get new address in admin wallet (pre generated addresses)*/
 router.get('/address/get', 						apiController.getAddress);
 
 /* Check transactions */
-router.get('/address/check/:address', 			apiController.checkAddress);
+router.get('/address/check', 					apiController.checkAddress);
 
 /* create escrow */
 router.get('/escrow/create/:amount', 			apiController.createEscrow);

@@ -15,6 +15,7 @@ const getAddress = {
 					txs: []
 				}
 				if(res.body.txrefs) res.body.txrefs.map(tx=>result.txs.push(tx.tx_hash))
+				if(res.body.unconfirmed_txrefs) res.body.unconfirmed_txrefs.map(tx=>result.txs.push(tx.tx_hash))
 				resolve(result)
 			})
 		},reason=>{
@@ -30,6 +31,8 @@ const getAddress = {
 					txs: []
 				}
 				if(res.body.txrefs) res.body.txrefs.map(tx=>result.txs.push(tx.tx_hash))
+				if(res.body.unconfirmed_txrefs) res.body.unconfirmed_txrefs.map(tx=>result.txs.push(tx.tx_hash))
+
 				resolve(result)
 			})
 		},reason=>{

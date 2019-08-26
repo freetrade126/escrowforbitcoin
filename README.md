@@ -132,12 +132,12 @@ Confirmations have done, It create or update new document in **wallet** collecti
 /api/v1/escrow/release/:escrowid
 ```
 
-5. release escrow bitcoins.
+5. request withdrawal
 ```
 /api/v1/withdraw/request/:address/:amount (as satoshi)
 ```
 
-6. release escrow bitcoins.
+6. accept withdrawal.
 ```
 /api/v1/withdraw/accept/:requestid (as satoshi)
 ```

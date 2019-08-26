@@ -34,9 +34,21 @@
 		</div>
 		<div id="step1" class="deposit d-none">
 			<div id="qrcode"></div>
-			<p class="mt-2 "><input id="address" style="width:350px;outline:none" readonly class="text-center text-monospace font-weight-bold border-none p-2" value=""></p>
+			<p class="mt-2 "><input id="address" style="width:350px;outline:none" readonly class="text-center text-monospace font-weight-bold border-0 p-2" value=""></p>
 			<h4 class="mt-4"><i class="fa fa-cog fa-spin"></i> Waiting your payment...</h4>
-			<p>An incoming transaction needs to receive 3 Bitcoin network confirmations to appear in your wallet.</p>
+		</div>
+		<div id="step2" class="deposit d-none">
+			<h4 class="mt-4"><i class="fa fa-cog fa-spin"></i> Confirming...</h4>
+			<div class="mt-3 mb-3 ellipsis">tx: <span class="x-tx"></span></div>
+			<h5>Amount: <span class="text-success x-value vertical-align-middle"></span></h5>
+			<h5>Confirmations: <span  class="text-primary x-confirm vertical-align-middle"></span></h4>
+			<p class="mt-5">An incoming transaction needs to receive 3 Bitcoin network confirmations to appear in your wallet.</p>
+		</div>
+		<div id="step3" class="deposit d-none">
+			<h1 class="text-success"><i class="anticon anticon-check-circle-o"><svg viewBox="64 64 896 896" class="" data-icon="check-circle" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M699 353h-46.9c-10.2 0-19.9 4.9-25.9 13.3L469 584.3l-71.2-98.8c-6-8.3-15.6-13.3-25.9-13.3H325c-6.5 0-10.3 7.4-6.5 12.7l124.6 172.8a31.8 31.8 0 0 0 51.7 0l210.6-292c3.9-5.3.1-12.7-6.4-12.7z"></path><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"></path></svg></i></h1>
+			<h4>Transaction completed</h4>
+			<h4><span class="text-success"><span class="x-value vertical-align-middle"></span></span></h4>
+			<p>Notice: Do not reuse the bitcoin address used for this payment.</p>
 		</div>
 	</div>
 </div>

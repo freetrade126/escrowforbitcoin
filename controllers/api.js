@@ -17,63 +17,81 @@ const send=(res,status,data)=>{
 	res.send(JSON.stringify(result));
 };
 
-const deposit= amount => {
-
-};
-
-exports.getAddress = async (req, res)=>{
+const address=async ()=>{
 	let result=await modelAddress.findOne({uid:uid,status:0});
-	let address='';
-	if(result) {
-		address=result.address;
-	}else{
+	if(result==null) {
 		result=await modelAddress.findOne({uid:0});
 		if(result) {
 			result.uid=uid;
 			result.user=user;
-			result.created=+new Date(new Date().toUTCString());
+			result.created=(+new Date(new Date().toUTCString()))/1000;
 			modelAddress.update({_id: result._id}, result);
-			address=result.address;
 		}
 	}
-	if(address) send(res,'ok',address)
-	else send(res,'fail','No availible address')
+	return result;
+}
+
+exports.getAddress = async (req, res)=>{
+	let result=await address();
+	send(res, 'ok', {
+		address: result.address,
+		tx: result.tx,
+		status: result.status,
+		amount: result.balance,
+		confirmations: result.confirmations
+	})
 }
 
 exports.checkAddress = async (req, res)=>{
-	let address=req.params.address;
-	result=await modelAddress.findOne({uid:uid,address:address});
-	if(result && result.status==0) {
-		let tx=result.tx;
-		if(tx=='') {
-			let res=await api.getAddress[network](address);
-			if(res) {
-				if(res.txs.length) {
-					tx=res.txs[res.txs.length-1];
-					result.tx=tx;
-				}
+	let result=await address();
+	if(result.tx=='') {
+		let resApi=await api.getAddress[network](result.address);
+		if(resApi) {
+			if(resApi.txs.length) {
+				result.tx=resApi.txs[resApi.txs.length-1];
+				result.balance=resApi.balance+resApi.unconfirmed_balance;
 			}
 		}
-		if(tx) {
-			let res=await api.getTx[network](tx);
-			if(res) {
-				if(res.confirmations>=MIN_CONFIRMATIONs) {
-					result.balance=res.value;
-					result.status=100;
-					deposit(result.balance);
-				}
-			}
-		}
-		result.update=+new Date(new Date().toUTCString());
-		modelAddress.update({_id: result._id}, result);
-		send(res, 'ok', {
-			tx: result.tx,
-			status: result.status,
-			amount: result.balance
-		})
-	}else{
-		send(res, 'fail','')
 	}
+	if(result.tx) {
+		let resApi=await api.getTx[network](result.tx);
+		if(resApi) {
+			result.confirmations=resApi.confirmations;
+			if(result.confirmations>=MIN_CONFIRMATIONs) {
+				result.status=100;
+				let row = null;
+				row=await modelWallet.findOne({uid:uid});
+				if(row) {
+					row.btc+=result.balance;
+					modelAddress.update({_id: row._id}, row);
+				}else{
+					row={
+						uid: uid,
+						user: user,
+						btc: result.balance,
+						btclocked: 0
+					};
+					modelWallet.insertOne(row);
+				}
+				modelTransactions.insertOne({
+					uid: uid,
+					user: user,
+					btc: result.balance,
+					note: 'Deposit from '+result.address
+				});
+			}
+			
+		}
+	}
+	result.updated=(+new Date(new Date().toUTCString()))/1000;
+	modelAddress.update({_id: result._id}, result);
+	send(res, 'ok', {
+		address: result.address,
+		tx: result.tx,
+		status: result.status,
+		amount: result.balance,
+		confirmations: result.confirmations
+	})
 }
 /* 
 exports.getTransaction = async (req, res)=>{

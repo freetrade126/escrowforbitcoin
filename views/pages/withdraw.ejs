@@ -1,1 +1,66 @@
-bb
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Deposit</title>
+	<% include ../partials/head %>
+</head>
+<body class="container">
+<% include ../partials/header %>
+
+
+<main>
+<div class="dialog">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="row">
+				<div class="col-6">Your balance:</div>
+				<div class="text-primary col-6"><%= balance %></div>
+			</div>
+			<div class="row">
+				<div class="col-6">Transaction fee:</div>
+				<div class="col-6 text-secondary"><%= fee %></div>
+			</div>
+			<div class="row">
+				<div class="col-6">You can send up to:</div>
+				<div class="col-6 text-success"><%= available %></div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<form class="mt-5" action="" method="POST">
+				<div class="field-row ">
+					<div class="label-vertical form-group">
+						<label for="address" class="control-label requiredField">Receiving bitcoin address</label>
+						<div class="controls controls-vertical">
+							<input autocomplete="off" required="" value="" class="input-xlarge textinput textInput form-control" id="address" name="address" placeholder="Receiving bitcoin address" minlength="33" maxlength="35" pattern="^[a-zA-Z0-9]+$" type="text">
+						</div>
+					</div>
+				</div>
+				<div class="field-row ">
+					<div class="label-vertical form-group">
+						<label for="amount" class="control-label requiredField">Amount in bitcoins</label>
+						<div class="controls controls-vertical">
+							<input autocomplete="off" required="" value="" class="input-small textinput textInput form-control" id="amount" name="amount" placeholder="0.000000" minlength="3" maxlength="10" pattern="^[0-9.]+$" type="text" value="">
+						</div>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary">Request withdrawal</button>
+			</form>
+		</div>
+	</div>
+</div>
+</main>
+
+<% include ../partials/footer %>
+<% include ../partials/js %>
+<script src="/js/jquery.qrcode.js"></script>
+<script src="/js/socket.io.js"></script>
+<script src="/app/deposit.js"></script>
+</body>
+</html>
+
+
+
+
+	
